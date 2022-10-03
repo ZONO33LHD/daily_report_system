@@ -4,14 +4,18 @@
 <%@ page import="constants.ForwardConst" %>
 
 <c:set var="action" value="${ForwardConst.ACT_AUTH.getValue()}" />
-<c:set var="command" value="${FOrwardConst.CMD_LOGIN.getValue()}" />
-
+<c:set var="command" value="${ForwardConst.CMD_LOGIN.getValue()}" />
 
 <c:import url="/WEB-INF/views/layout/app.jsp">
     <c:param name="content">
         <c:if test="${loginError}">
             <div id="flush_error">
                 社員番号かパスワードが間違っています。
+            </div>
+        </c:if>
+        <c:if test="${flush != null}">
+            <div id="flush_success">
+                <c:out value="${flush}"></c:out>
             </div>
         </c:if>
         <h2>ログイン</h2>
