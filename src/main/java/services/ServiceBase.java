@@ -2,8 +2,11 @@ package services;
 
 import javax.persistence.EntityManager;
 
-import util.DBUtil;
+import utils.DBUtil;
 
+/**
+ * DB接続に関わる共通処理を行うクラス
+ */
 public class ServiceBase {
 
     /**
@@ -19,5 +22,4 @@ public class ServiceBase {
             em.close();
         }
     }
-
 }

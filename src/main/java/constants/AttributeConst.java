@@ -1,7 +1,6 @@
 package constants;
 
 /**
- *
  * 画面の項目値等を定義するEnumクラス
  *
  */
@@ -14,7 +13,6 @@ public enum AttributeConst {
     MAX_ROW("maxRow"),
     PAGE("page"),
 
-
     //入力フォーム共通
     TOKEN("_token"),
     ERR("errors"),
@@ -24,7 +22,6 @@ public enum AttributeConst {
 
     //ログイン画面
     LOGIN_ERR("loginError"),
-
 
     //従業員管理
     EMPLOYEE("employee"),
@@ -43,7 +40,6 @@ public enum AttributeConst {
     //削除フラグ
     DEL_FLAG_TRUE(1),
     DEL_FLAG_FALSE(0),
-
 
     //日報管理
     REPORT("report"),
@@ -74,4 +70,5 @@ public enum AttributeConst {
     public Integer getIntegerValue() {
         return this.i;
     }
+
 }

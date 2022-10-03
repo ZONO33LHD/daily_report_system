@@ -12,11 +12,11 @@ import constants.PropertyConst;
 import services.EmployeeService;
 
 /**
- *認証に関する処理を行うActionクラス
+ * 認証に関する処理を行うActionクラス
  *
  */
-
 public class AuthAction extends ActionBase {
+
     private EmployeeService service;
 
     /**
@@ -24,6 +24,7 @@ public class AuthAction extends ActionBase {
      */
     @Override
     public void process() throws ServletException, IOException {
+
         service = new EmployeeService();
 
         //メソッドを実行
@@ -52,7 +53,6 @@ public class AuthAction extends ActionBase {
         //ログイン画面を表示
         forward(ForwardConst.FW_LOGIN);
     }
-
     /**
      * ログイン処理を行う
      * @throws ServletException
@@ -96,13 +96,13 @@ public class AuthAction extends ActionBase {
             forward(ForwardConst.FW_LOGIN);
         }
     }
-
     /**
      * ログアウト処理を行う
      * @throws ServletException
      * @throws IOException
      */
     public void logout() throws ServletException, IOException {
+
         //セッションからログイン従業員のパラメータを削除
         removeSessionScope(AttributeConst.LOGIN_EMP);
 
@@ -111,5 +111,6 @@ public class AuthAction extends ActionBase {
 
         //ログイン画面にリダイレクト
         redirect(ForwardConst.ACT_AUTH, ForwardConst.CMD_SHOW_LOGIN);
+
     }
 }
