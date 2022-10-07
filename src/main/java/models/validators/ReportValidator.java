@@ -27,7 +27,7 @@ public class ReportValidator {
 
         //内容のチェック
         String contentError = validateContent(rv.getContent());
-        if(!contentError.equals("")) {
+        if (!contentError.equals("")) {
             errors.add(contentError);
         }
 
