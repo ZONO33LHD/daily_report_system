@@ -12,7 +12,6 @@ import constants.ForwardConst;
 import constants.JpaConst;
 import services.ReportService;
 
-
 /**
  * 日報に関する処理を行うActionクラス
  *
@@ -27,7 +26,7 @@ public class ReportAction extends ActionBase {
      * メソッドを実行する
      */
     @Override
-    public void process() throws ServletException, IOException{
+    public void process() throws ServletException, IOException {
         service = new ReportService();
 
         //メソッドを実行
@@ -35,7 +34,6 @@ public class ReportAction extends ActionBase {
         service.close();
 
     }
-
 
     /**
      * 一覧画面を表示する
@@ -58,7 +56,7 @@ public class ReportAction extends ActionBase {
 
         //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
-        if(flush != null) {
+        if (flush != null) {
             putRequestScope(AttributeConst.FLUSH, flush);
             removeSessionScope(AttributeConst.FLUSH);
         }
@@ -73,7 +71,7 @@ public class ReportAction extends ActionBase {
      * @throws ServletException
      * @throws IOException
      */
-    public void entryNew() throws ServletException, IOException{
+    public void entryNew() throws ServletException, IOException {
 
         putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
 
@@ -84,8 +82,5 @@ public class ReportAction extends ActionBase {
 
         //新規登録画面を表示
         forward(ForwardConst.FW_REP_NEW);
-
     }
-
-
 }
