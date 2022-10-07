@@ -94,7 +94,7 @@ public class Report {
      * 更新日時
      */
     @Column(name = JpaConst.REP_COL_UPDATED_AT, nullable = false)
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
 
 }
