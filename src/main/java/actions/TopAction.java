@@ -19,6 +19,7 @@ import services.ReportService;
 public class TopAction extends ActionBase {
 
     private ReportService service;
+
     /**
      * indexメソッドを実行する
      */
@@ -38,6 +39,8 @@ public class TopAction extends ActionBase {
      * 一覧画面を表示する
      */
     public void index() throws ServletException, IOException {
+
+
 
         //セッションからログイン中の従業員情報を取得
         EmployeeView loginEmployee = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);

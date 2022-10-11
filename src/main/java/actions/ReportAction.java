@@ -17,8 +17,6 @@ import services.ReportService;
 /**
  * 日報に関する処理を行うActionクラス
  *
- *
- *
  */
 public class ReportAction extends ActionBase {
 
@@ -29,12 +27,12 @@ public class ReportAction extends ActionBase {
      */
     @Override
     public void process() throws ServletException, IOException {
+
         service = new ReportService();
 
         //メソッドを実行
         invoke();
         service.close();
-
     }
 
     /**
@@ -56,7 +54,7 @@ public class ReportAction extends ActionBase {
         putRequestScope(AttributeConst.PAGE, page); //ページ数
         putRequestScope(AttributeConst.MAX_ROW, JpaConst.ROW_PER_PAGE); //1ページに表示するレコードの数
 
-      //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
+        //セッションにフラッシュメッセージが設定されている場合はリクエストスコープに移し替え、セッションからは削除する
         String flush = getSessionScope(AttributeConst.FLUSH);
         if (flush != null) {
             putRequestScope(AttributeConst.FLUSH, flush);
@@ -65,9 +63,7 @@ public class ReportAction extends ActionBase {
 
         //一覧画面を表示
         forward(ForwardConst.FW_REP_INDEX);
-
     }
-
     /**
      * 新規登録画面を表示する
      * @throws ServletException
@@ -84,8 +80,8 @@ public class ReportAction extends ActionBase {
 
         //新規登録画面を表示
         forward(ForwardConst.FW_REP_NEW);
-    }
 
+    }
     /**
      * 新規登録を行う
      * @throws ServletException
@@ -101,7 +97,6 @@ public class ReportAction extends ActionBase {
             if (getRequestParam(AttributeConst.REP_DATE) == null
                     || getRequestParam(AttributeConst.REP_DATE).equals("")) {
                 day = LocalDate.now();
-
             } else {
                 day = LocalDate.parse(getRequestParam(AttributeConst.REP_DATE));
             }
@@ -109,10 +104,10 @@ public class ReportAction extends ActionBase {
             //セッションからログイン中の従業員情報を取得
             EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
-            //パラメータの値を元に日報情報のインスタンスを作成する
+            //パラメータの値をもとに日報情報のインスタンスを作成する
             ReportView rv = new ReportView(
                     null,
-                    ev, //ログインしている従業員を、日報作成車として登録する
+                    ev, //ログインしている従業員を、日報作成者として登録する
                     day,
                     getRequestParam(AttributeConst.REP_TITLE),
                     getRequestParam(AttributeConst.REP_CONTENT),
@@ -126,11 +121,12 @@ public class ReportAction extends ActionBase {
                 //登録中にエラーがあった場合
 
                 putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
-                putRequestScope(AttributeConst.REPORT, rv); //入力された日報情報
-                putRequestScope(AttributeConst.ERR, errors); //エラーのリスト
+                putRequestScope(AttributeConst.REPORT, rv);//入力された日報情報
+                putRequestScope(AttributeConst.ERR, errors);//エラーのリスト
 
-                //新規登録画面を表示
+                //新規登録画面を再表示
                 forward(ForwardConst.FW_REP_NEW);
+
             } else {
                 //登録中にエラーがなかった場合
 
@@ -142,8 +138,6 @@ public class ReportAction extends ActionBase {
             }
         }
     }
-
-
     /**
      * 詳細画面を表示する
      * @throws ServletException
@@ -166,7 +160,6 @@ public class ReportAction extends ActionBase {
             forward(ForwardConst.FW_REP_SHOW);
         }
     }
-
     /**
      * 編集画面を表示する
      * @throws ServletException
@@ -177,24 +170,24 @@ public class ReportAction extends ActionBase {
         //idを条件に日報データを取得する
         ReportView rv = service.findOne(toNumber(getRequestParam(AttributeConst.REP_ID)));
 
-        //セッションからログイン中の従業員情報を取得する
+        //セッションからログイン中の従業員情報を取得
         EmployeeView ev = (EmployeeView) getSessionScope(AttributeConst.LOGIN_EMP);
 
         if (rv == null || ev.getId() != rv.getEmployee().getId()) {
-            //該当の日報データが存在しない、又は
+            //該当の日報データが存在しない、または
             //ログインしている従業員が日報の作成者でない場合はエラー画面を表示
-
+            forward(ForwardConst.FW_ERR_UNKNOWN);
 
         } else {
+
             putRequestScope(AttributeConst.TOKEN, getTokenId()); //CSRF対策用トークン
             putRequestScope(AttributeConst.REPORT, rv); //取得した日報データ
-
 
             //編集画面を表示
             forward(ForwardConst.FW_REP_EDIT);
         }
-    }
 
+    }
     /**
      * 更新を行う
      * @throws ServletException
@@ -237,7 +230,4 @@ public class ReportAction extends ActionBase {
             }
         }
     }
-
-
-
 }
